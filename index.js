@@ -52,43 +52,20 @@ var io = require("socket.io")(server, {
 //server.listen(3002);
 server.listen(process.env.PORT || 80);
 
-var arrUsers = [""];
-
 io.on("connection", function(socket){
 
 	socket.on("disconnect", function(){
-		if(arrUsers.indexOf(socket.Username)>0){
-			arrUsers.splice(
-				arrUsers.indexOf(socket.Username), 1
-			);
-			socket.broadcast.emit("server-send-list-users", arrUsers);
-		}
+		//
 	});
 
 	socket.on("client-send-username", function(data){
 		socket.Username = data;
-		arrUsers.push(socket.Username);
-		socket.emit("server-send-singup-success", data);
-		io.sockets.emit("server-send-list-users", arrUsers);
-	});
-
-	socket.on("logout", function(){
-		arrUsers.splice(
-			arrUsers.indexOf(socket.Username), 1
-		);
-		socket.broadcast.emit("server-send-list-users", arrUsers);
 	});
 
 	socket.on("user-send-messages", function(data){
 		socket.broadcast.emit("server-send-messages", {un:socket.Username, nd:data});
 	});
 
-	socket.on("typing", function(){
-		socket.broadcast.emit("server-send-typing");
-	});
-	socket.on("stop-typing", function(){
-		socket.broadcast.emit("server-send-stop-typing");
-	});
 });
 
 process.on('unhandledRejection', error => {
