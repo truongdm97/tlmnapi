@@ -40,8 +40,8 @@ require('./api/routes/user.routes.js')(app, {
 });
 
 // listen for requests
-//app.listen(3001);
-app.listen(process.env.PORT || 3001);
+app.listen(3001);
+//app.listen(process.env.PORT || 3001);
 
 var server = require("http").Server(app);
 var io = require("socket.io")(server, {
@@ -49,8 +49,8 @@ var io = require("socket.io")(server, {
     origin: '*'
   }
 });
-//server.listen(3002);
-server.listen(process.env.PORT || 3002);
+server.listen(3002);
+//server.listen(process.env.PORT || 3002);
 
 var arrUsers = [""];
 
