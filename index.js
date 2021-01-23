@@ -90,3 +90,7 @@ io.on("connection", function(socket){
 		socket.broadcast.emit("server-send-stop-typing");
 	});
 });
+
+process.on('unhandledRejection', error => {
+  //
+});
