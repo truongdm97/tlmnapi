@@ -4,8 +4,8 @@ const User = require('../models/user.model.js');
 exports.create = (req, res) => {
     // Validate request
     if(!req.body.username || !req.body.password || !req.body.nickname) {
-        return res.status(400).send({
-            message: "username password nickname can not be empty"
+        return res.json({
+            "message": "username password nickname can not be empty"
         });
     }
 
@@ -28,11 +28,11 @@ exports.create = (req, res) => {
     .then(data => {
         res.json({"message": "ok"});
     }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while creating the user."
+        res.json({
+            "message": err.message || "Some error occurred while creating the user."
         });
-        res.status(404).send({
-            message: err.message || "Some error occurred while creating the user."
+        res.json({
+            "message": err.message || "Some error occurred while creating the user."
         });
     });
 };
@@ -43,8 +43,8 @@ exports.findAll = (req, res) => {
     .then(users => {
         res.send(users);
     }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving users."
+        res.json({
+            "message": err.message || "Some error occurred while retrieving users."
         });
     });
 };
@@ -54,19 +54,19 @@ exports.findOne = (req, res) => {
     User.findById(req.params.userId)
     .then(user => {
         if(!user) {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });            
         }
         res.send(user);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });                
         }
-        return res.status(500).send({
-            message: "Error retrieving user"
+        return res.json({
+            "message": "Error retrieving user"
         });
     });
 };
@@ -78,19 +78,19 @@ exports.update = (req, res) => {
     User.findByIdAndUpdate(req.params.userId, req.body, {new: true})
     .then(user => {
         if(!user) {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });
         }
         res.json({"message": "ok"});
     }).catch(err => {
         if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });                
         }
-        return res.status(500).send({
-            message: "Error updating user"
+        return res.json({
+            "message": "Error updating user"
         });
     });
 };
@@ -100,19 +100,19 @@ exports.delete = (req, res) => {
     User.findByIdAndRemove(req.params.userId)
     .then(user => {
         if(!user) {
-            return res.status(404).send({
-                message: "user not found"
+            return json({
+                "message": "user not found"
             });
         }
-        res.send({message: "ok"});
+        res.json({"message": "ok"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });                
         }
-        return res.status(500).send({
-            message: "Could not delete user"
+        return res.json({
+            "message": "Could not delete user"
         });
     });
 };
@@ -122,19 +122,19 @@ exports.login = (req, res) => {
     User.findOne({username: req.body.username, password: req.body.password})
     .then(user => {
         if(!user) {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });            
         }
-        res.send({message: "ok"});
+        res.json({"message": "ok"});
     }).catch(err => {
         if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "user not found"
+            return res.json({
+                "message": "user not found"
             });                
         }
-        return res.status(500).send({
-            message: "Error login"
+        return res.json({
+            "message": "Error login"
         });
     });
 };

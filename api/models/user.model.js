@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const NoteSchema = mongoose.Schema({
     username: { type: String, unique: true },
-    password: { type: String, unique: true },
-    nickname: { type: String, unique: true },
+    password: String,
+    nickname: String,
     email: String,
     phone: String,
     coin: Number,
