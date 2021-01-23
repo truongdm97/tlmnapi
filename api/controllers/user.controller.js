@@ -123,14 +123,14 @@ exports.login = (req, res) => {
     .then(user => {
         if(!user) {
             return res.json({
-                "message": "user not found"
+                "message": "Username or password is incorrect"
             });            
         }
         res.json({"message": "ok"});
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.json({
-                "message": "user not found"
+                "message": "Login failed"
             });                
         }
         return res.json({
