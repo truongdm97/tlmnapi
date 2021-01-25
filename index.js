@@ -69,33 +69,28 @@ io.on("connection", function(socket){
 	        switch(room) {
 				case "r1":
 					room1.splice(room1.indexOf(user), 1);
+					if (socket.Userready == 1) {
+						numReadyRoom1 = numReadyRoom1 - 1;
+					}
 					break;
 				case "r2":
 					room2.splice(room2.indexOf(user), 1);
+					if (socket.Userready == 1) {
+						numReadyRoom2 = numReadyRoom2 - 1;
+					}
 					break;
 				case "r3":
 					room3.splice(room3.indexOf(user), 1);
+					if (socket.Userready == 1) {
+						numReadyRoom3 = numReadyRoom3 - 1;
+					}
 					break;
 				case "r4":
 					room4.splice(room4.indexOf(user), 1);
-					break;
-			}
-
-			if (socket.Userready == 1) {
-				switch(room) {
-					case "r1":
-						numReadyRoom1 = numReadyRoom1 - 1;
-						break;
-					case "r2":
-						numReadyRoom2 = numReadyRoom2 - 1;
-						break;
-					case "r3":
-						numReadyRoom3 = numReadyRoom3 - 1;
-						break;
-					case "r4":
+					if (socket.Userready == 1) {
 						numReadyRoom4 = numReadyRoom4 - 1;
-						break;
-				}
+					}
+					break;
 			}
 		}
 	});
@@ -148,6 +143,7 @@ io.on("connection", function(socket){
 				}
 				break;
 			}
+		console.log(numReadyRoom1);
 		listJoined.push(user);
         socket.Userroom = room;
         socket.Username = user;
@@ -186,6 +182,7 @@ io.on("connection", function(socket){
 				}
 				break;
 		}
+		console.log(numReadyRoom1);
 	});
 
 	socket.on("user-send-not-ready", function(data){
@@ -204,6 +201,7 @@ io.on("connection", function(socket){
 				numReadyRoom4 = numReadyRoom4 - 1;
 				break;
 		}
+		console.log(numReadyRoom1);
 	});
 
 });
