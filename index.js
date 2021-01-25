@@ -71,24 +71,28 @@ io.on("connection", function(socket){
 					room1.splice(room1.indexOf(user), 1);
 					if (socket.Userready == 1) {
 						numReadyRoom1 = numReadyRoom1 - 1;
+						io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom1);
 					}
 					break;
 				case "r2":
 					room2.splice(room2.indexOf(user), 1);
 					if (socket.Userready == 1) {
 						numReadyRoom2 = numReadyRoom2 - 1;
+						io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom2);
 					}
 					break;
 				case "r3":
 					room3.splice(room3.indexOf(user), 1);
 					if (socket.Userready == 1) {
 						numReadyRoom3 = numReadyRoom3 - 1;
+						io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom3);
 					}
 					break;
 				case "r4":
 					room4.splice(room4.indexOf(user), 1);
 					if (socket.Userready == 1) {
 						numReadyRoom4 = numReadyRoom4 - 1;
+						io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom4);
 					}
 					break;
 			}
@@ -143,7 +147,6 @@ io.on("connection", function(socket){
 				}
 				break;
 			}
-		console.log(numReadyRoom1);
 		listJoined.push(user);
         socket.Userroom = room;
         socket.Username = user;
@@ -159,30 +162,33 @@ io.on("connection", function(socket){
 		switch(room) {
 			case "r1":
 				numReadyRoom1 = numReadyRoom1 + 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom1);
 				if (numReadyRoom1 > 1 && numReadyRoom1 == room1.length) {
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 			case "r2":
 				numReadyRoom1 = numReadyRoom1 + 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom2);
 				if (numReadyRoom2 > 1 && numReadyRoom2 == room2.length) {
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 			case "r3":
 				numReadyRoom1 = numReadyRoom1 + 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom3);
 				if (numReadyRoom3 > 1 && numReadyRoom3 == room3.length) {
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 			case "r4":
 				numReadyRoom1 = numReadyRoom1 + 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom4);
 				if (numReadyRoom4 > 1 && numReadyRoom4 == room4.length) {
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 		}
-		console.log(numReadyRoom1);
 	});
 
 	socket.on("user-send-not-ready", function(data){
@@ -190,18 +196,21 @@ io.on("connection", function(socket){
 		switch(socket.Userroom) {
 			case "r1":
 				numReadyRoom1 = numReadyRoom1 - 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom1);
 				break;
 			case "r2":
 				numReadyRoom2 = numReadyRoom2 - 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom2);
 				break;
 			case "r3":
 				numReadyRoom3 = numReadyRoom3 - 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom3);
 				break;
 			case "r4":
 				numReadyRoom4 = numReadyRoom4 - 1;
+				io.in(socket.Userroom).emit("server-send-num-ready", numReadyRoom4);
 				break;
 		}
-		console.log(numReadyRoom1);
 	});
 
 });
