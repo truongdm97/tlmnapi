@@ -63,6 +63,7 @@ io.on("connection", function(socket){
 	socket.on("disconnect", function(){
 		if (socket.Username) {
 			var user = socket.Username;
+			var room = socket.Userroom;
 
 			listJoined.splice(listJoined.indexOf(user), 1);
 	        switch(room) {
@@ -79,24 +80,22 @@ io.on("connection", function(socket){
 					room4.splice(room4.indexOf(user), 1);
 					break;
 			}
-		}
 
-		if (socket.Userready && socket.Userready == 1) {
-			var room = socket.Userroom;
-
-			switch(room) {
-				case "r1":
-					numReadyRoom1 = numReadyRoom1 - 1;
-					break;
-				case "r2":
-					numReadyRoom2 = numReadyRoom2 - 1;
-					break;
-				case "r3":
-					numReadyRoom3 = numReadyRoom3 - 1;
-					break;
-				case "r4":
-					numReadyRoom4 = numReadyRoom4 - 1;
-					break;
+			if (socket.Userready == 1) {
+				switch(room) {
+					case "r1":
+						numReadyRoom1 = numReadyRoom1 - 1;
+						break;
+					case "r2":
+						numReadyRoom2 = numReadyRoom2 - 1;
+						break;
+					case "r3":
+						numReadyRoom3 = numReadyRoom3 - 1;
+						break;
+					case "r4":
+						numReadyRoom4 = numReadyRoom4 - 1;
+						break;
+				}
 			}
 		}
 	});
