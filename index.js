@@ -57,6 +57,10 @@ var numReadyRoom1 = 0;
 var numReadyRoom2 = 0;
 var numReadyRoom3 = 0;
 var numReadyRoom4 = 0;
+var room1Status = 0;
+var room2Status = 0;
+var room3Status = 0;
+var room4Status = 0;
 
 io.on("connection", function(socket){
 
@@ -96,6 +100,11 @@ io.on("connection", function(socket){
 					io.in(room).emit("server-send-joined-room", room4, numReadyRoom4);
 					break;
 			}
+
+			room1Status = 0;
+			room2Status = 0;
+			room3Status = 0;
+			room4Status = 0;
 		}
 	});
 
@@ -161,30 +170,50 @@ io.on("connection", function(socket){
 		var room = socket.Userroom
 		switch(room) {
 			case "r1":
+				if (room1Status == 1) {
+					socket.emit("server-send-game-started");
+					return;
+				}
 				numReadyRoom1 = numReadyRoom1 + 1;
 				io.in(room).emit("server-send-joined-room", room1, numReadyRoom1);
 				if (numReadyRoom1 > 1 && numReadyRoom1 == room1.length) {
+					room1Status = 1;
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 			case "r2":
+				if (room2Status == 1) {
+					socket.emit("server-send-game-started");
+					return;
+				}
 				numReadyRoom1 = numReadyRoom1 + 1;
 				io.in(room).emit("server-send-joined-room", room2, numReadyRoom2);
 				if (numReadyRoom2 > 1 && numReadyRoom2 == room2.length) {
+					room2Status = 1;
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 			case "r3":
+				if (room3Status == 1) {
+					socket.emit("server-send-game-started");
+					return;
+				}
 				numReadyRoom1 = numReadyRoom1 + 1;
 				io.in(room).emit("server-send-joined-room", room3, numReadyRoom3);
 				if (numReadyRoom3 > 1 && numReadyRoom3 == room3.length) {
+					room3Status = 1;
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
 			case "r4":
+				if (room4Status == 1) {
+					socket.emit("server-send-game-started");
+					return;
+				}
 				numReadyRoom1 = numReadyRoom1 + 1;
 				io.in(room).emit("server-send-joined-room", room4, numReadyRoom4);
 				if (numReadyRoom4 > 1 && numReadyRoom4 == room4.length) {
+					room4Status = 1;
 					io.in(room).emit("server-send-game-start");
 				}
 				break;
