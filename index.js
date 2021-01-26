@@ -77,6 +77,9 @@ io.on("connection", function(socket){
 						numReadyRoom1 = numReadyRoom1 - 1;
 					}
 					io.in(room).emit("server-send-joined-room", room1, numReadyRoom1);
+					if (room1 == []) {
+						numReadyRoom1 = 0;
+					}
 					break;
 				case "r2":
 					room2.splice(room2.indexOf(user), 1);
@@ -84,6 +87,9 @@ io.on("connection", function(socket){
 						numReadyRoom2 = numReadyRoom2 - 1;
 					}
 					io.in(room).emit("server-send-joined-room", room2, numReadyRoom2);
+					if (room2 == []) {
+						numReadyRoom2 = 0;
+					}
 					break;
 				case "r3":
 					room3.splice(room3.indexOf(user), 1);
@@ -91,6 +97,9 @@ io.on("connection", function(socket){
 						numReadyRoom3 = numReadyRoom3 - 1;
 					}
 					io.in(room).emit("server-send-joined-room", room3, numReadyRoom3);
+					if (room3 == []) {
+						numReadyRoom3 = 0;
+					}
 					break;
 				case "r4":
 					room4.splice(room4.indexOf(user), 1);
@@ -98,6 +107,9 @@ io.on("connection", function(socket){
 						numReadyRoom4 = numReadyRoom4 - 1;
 					}
 					io.in(room).emit("server-send-joined-room", room4, numReadyRoom4);
+					if (room4 == []) {
+						numReadyRoom4 = 0;
+					}
 					break;
 			}
 
