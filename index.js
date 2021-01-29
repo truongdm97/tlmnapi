@@ -122,6 +122,7 @@ io.on("connection", function(socket){
 					room1Id.splice(room1Id.indexOf(socket.id), 1);
 					if (socket.Userready == 1) {
 						numReadyRoom1 = numReadyRoom1 - 1;
+						socket.broadcast.to(room).emit("server-send-end-game");
 					}
 					io.in(room).emit("server-send-joined-room", room1, numReadyRoom1);
 					if (room1 == []) {
@@ -132,13 +133,14 @@ io.on("connection", function(socket){
 					room2.splice(room2.indexOf(user), 1);
 					room2Id.splice(room1Id.indexOf(socket.id), 1);
 					if (socket.Userready == 1) {
-						numReadyRoom2 = numReadyRoom2 - 1;
-					}
+						numReadyRoom2 = numReadyRoom2 - 1
+						socket.broadcast.to(room).emit("server-send-end-game");				}
 					io.in(room).emit("server-send-joined-room", room2, numReadyRoom2);
 					if (room2 == []) {
 						numReadyRoom2 = 0;
 					}
-					break;			}
+					break;
+			}
 			//tam thoi
 			room1Status = 0;
 			room2Status = 0;
@@ -263,6 +265,10 @@ io.on("connection", function(socket){
 				}
 				break;
 		}
+	});
+
+	socket.on("user-send-end-game", function(){
+		socket.broadcast.to(socket.Userroom).emit("server-send-end-game");
 	});
 
 });
