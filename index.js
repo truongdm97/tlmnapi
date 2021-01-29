@@ -207,7 +207,7 @@ io.on("connection", function(socket){
 					socket.emit("server-send-game-started");
 					return;
 				}
-				numReadyRoom1 = numReadyRoom1 + 1;
+				numReadyRoom2 = numReadyRoom2 + 1;
 				io.in(room).emit("server-send-joined-room", room2, numReadyRoom2);
 				if (numReadyRoom2 > 1 && numReadyRoom2 == room2.length) {
 					room2Status = 1;
