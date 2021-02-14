@@ -126,7 +126,7 @@ exports.login = (req, res) => {
                 "message": "Username or password is incorrect"
             });            
         }
-        res.json({"message": "ok"});
+        res.json({"message": "ok", "nick": user.nickname});
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.json({
